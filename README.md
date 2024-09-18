@@ -67,7 +67,7 @@ The SP-1 Movie Repository is a Java-based application that interacts with The Mo
 
 Here is an example of how to fetch and store Danish movies from the last five years:
 
-```java
+```sh
 List<MovieDTO> movieDTOs = movieService.getDanishMoviesFromLastFiveYears("results", "https://api.themoviedb.org/3/discover/movie?with_origin_country=DK");
 for (MovieDTO m : movieDTOs) {
     DirectorDTO directorDTO = movieService.getDirectorDTOFromURI(DirectorDTO.class, "crew", "https://api.themoviedb.org/3/movie/" + m.getId() + "/credits");
@@ -84,3 +84,35 @@ for (MovieDTO m : movieDTOs) {
     }
     movieDAO.createMovie(m);
 }
+```
+
+### Example Operations
+
+- **Fetching Danish Movies from the Last Five Years**: The application can fetch Danish movies released in the last five years and store them in the database.
+
+- **Handling Null Values**: The application includes checks to handle null values for various entities to prevent runtime exceptions.
+
+- **Database Operations**: The application supports creating, reading, updating, and deleting movie records in the database.
+
+### Classes and Methods
+
+#### `MovieService`
+
+- `getDanishMoviesFromLastFiveYears(String jsonFieldName, String uri)`: Fetches Danish movies from the last five years.
+- `getDTOFromURI(Class<T> dtoClass, String uri)`: Fetches a DTO from a given URI.
+- `getDirectorDTOFromURI(Class<DirectorDTO> dtoClass, String jsonFieldName, String uri)`: Fetches a director DTO from a given URI.
+- `getDTOsFromURI(Class<T> dtoClass, String jsonFieldName, String uri)`: Fetches a list of DTOs from a given URI.
+
+#### `MovieDAO`
+
+- `getMoviesByActorName(String actorName)`: Retrieves a list of movies that a particular actor has been part of.
+- `getMoviesByDirectorName(String directorName)`: Retrieves a list of movies directed by a particular director.
+- `getTop10MostPopularMovies()`: Retrieves the top 10 most popular movies.
+- `getTop10LowestRatedMovies()`: Retrieves the top 10 lowest-rated movies.
+- `searchMovieByName(String name)`: Searches for movies by name.
+- `createMovie(MovieDTO movieDTO)`: Creates a new movie record.
+- `updateMovie(MovieDTO movieDTO)`: Updates an existing movie record.
+- `deleteMovieById(int id)`: Deletes a movie record by ID.
+- `getAllMovies()`: Retrieves all movies.
+- `getMovieById(int id)`: Retrieves a movie by ID.
+
