@@ -14,10 +14,76 @@ import java.util.List;
 
 public class MovieDAO {
 
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public MovieDAO(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    public List<MovieDTO> getMoviesByDirectorName(String name) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<MovieDTO> query = em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m JOIN m.director d WHERE d.name = :name", MovieDTO.class);
+            query.setParameter("name", name);
+            List<MovieDTO> found = query.getResultStream().toList();
+            if (found.isEmpty()) {
+                throw new NoResultException();
+            }
+            return query.getResultStream().toList();
+        }
+    }
+
+    public List<MovieDTO> getMoviesByActorName(String name) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<MovieDTO> query = em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m JOIN m.actors a WHERE a.name = :name", MovieDTO.class);
+            query.setParameter("name", name);
+            List<MovieDTO> found = query.getResultStream().toList();
+            if (found.isEmpty()) {
+                throw new NoResultException();
+            }
+            return query.getResultStream().toList();
+        }
+    }
+
+    public List<MovieDTO> getTop10MostPopularMovies() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m ORDER BY m.popularity desc", MovieDTO.class)
+                    .setMaxResults(10)
+                    .getResultList();
+        }
+    }
+
+    public List<MovieDTO> getTop10LowestRatedMovies() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m ORDER BY m.rating asc", MovieDTO.class)
+                    .setMaxResults(10)
+                    .getResultList();
+        }
+    }
+
+    public List<MovieDTO> getTop10HighestRatedMovies() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m ORDER BY m.rating desc", MovieDTO.class)
+                    .setMaxResults(10)
+                    .getResultList();
+        }
+    }
+
+    public Double getTotalAverageOfAllMovies() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT AVG(m.rating) FROM Movie m", Double.class).getSingleResult();
+        }
+    }
+
+    public List<MovieDTO> searchMovieByName(String title) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<MovieDTO> query = em.createQuery("SELECT new app.dtos.MovieDTO(m) FROM Movie m WHERE LOWER(m.title) LIKE LOWER(:title)", MovieDTO.class);
+            query.setParameter("title", "%" + title + "%");
+            List<MovieDTO> found = query.getResultStream().toList();
+            if (found.isEmpty()) {
+                throw new NoResultException();
+            }
+            return query.getResultStream().toList();
+        }
     }
 
     public void deleteMovieById(int id) {
@@ -104,7 +170,8 @@ public class MovieDAO {
             //Check if movie exists in db
             Movie foundMovie = em.find(Movie.class, movie.getId());
             if (foundMovie != null) {
-                throw new EntityExistsException("Movie already exists in database");
+                System.out.println("Movie already exists in database");
+                return;
             }
 
             if (movieDTO.getGenresDTOs() != null) {

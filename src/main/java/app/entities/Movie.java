@@ -21,6 +21,7 @@ public class Movie {
     private String title;
     private String language;
     private LocalDate releaseDate;
+    private Double popularity;
     private Double rating;
 
     @ManyToMany
@@ -32,11 +33,12 @@ public class Movie {
     @ManyToOne
     private Director director;
 
-    public Movie(MovieDTO movieDTO){
+    public Movie(MovieDTO movieDTO) {
         this.id = movieDTO.getId();
         this.title = movieDTO.getTitle();
         this.language = movieDTO.getLanguage();
         this.releaseDate = movieDTO.getReleaseDate();
+        this.popularity = movieDTO.getPopularity();
         this.rating = movieDTO.getRating();
     }
 

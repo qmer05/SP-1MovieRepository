@@ -28,6 +28,7 @@ public class MovieDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonProperty("release_date")
     private LocalDate releaseDate;
+    private Double popularity;
     @JsonProperty("vote_average")
     private Double rating;
     @JsonProperty("genres")
@@ -40,6 +41,7 @@ public class MovieDTO {
         this.title = movie.getTitle();
         this.language = movie.getLanguage();
         this.releaseDate = movie.getReleaseDate();
+        this.popularity = movie.getPopularity();
         this.rating = movie.getRating();
         this.genresDTOs = movie.getGenres().stream()
                 .map(genre -> new GenreDTO(genre))

@@ -15,7 +15,7 @@ public class DirectorDTO {
     private String name;
     private String job;
 
-    public DirectorDTO(Director director){
+    public DirectorDTO(Director director) {
         this.id = director.getId();
         this.name = director.getName();
     }

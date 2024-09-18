@@ -24,37 +24,46 @@ public class Main {
         objectMapper.registerModule(new JavaTimeModule());
         MovieService movieService = new MovieService(objectMapper);
 
-        // Array of movies Ids
-        String[] movieIds = {"533535", "365177", "917496", "646097", "970347", "1079091"};
 
-        String movieId = "917496";
-
-        // Get Json from API's and convert to DTOs
+//        movieDAO.getMoviesByDirectorName("Kasper Juhl").forEach(System.out::println);
+//
+//        movieDAO.getMoviesByActorName("Nikolaj Lie Kaas").forEach(System.out::println);
+//
+//        movieDAO.getTop10MostPopularMovies().forEach(System.out::println);
+//
+//        movieDAO.getTop10LowestRatedMovies().forEach(System.out::println);
+//
+//        System.out.println(movieDAO.getTotalAverageOfAllMovies());
+//
+//        movieDAO.searchMovieByName("jagt").forEach(System.out::println);
+//
+//
+//        Get Json from API 's and convert to DTOs
+//        String movieId = "12093";
 //        List<ActorDTO> actorDTOs = movieService.getDTOsFromURI(ActorDTO.class, "cast", "https://api.themoviedb.org/3/movie/" + movieId + "/credits");
 //        DirectorDTO directorDTO = movieService.getDirectorDTOFromURI(DirectorDTO.class, "crew", "https://api.themoviedb.org/3/movie/" + movieId + "/credits");
 //        MovieDTO movieDTO = movieService.getDTOFromURI(MovieDTO.class, "https://api.themoviedb.org/3/movie/" + movieId);
 //        movieDTO.setDirectorDTO(directorDTO);
 //        movieDTO.setActorDTOs(actorDTOs);
-
-        // Get Json from API's and convert to DTOs (all danish movies within 5 years)
-        List<MovieDTO> movieDTOs = movieService.getDanishMoviesFromLastFiveYears("results", "https://api.themoviedb.org/3/discover/movie?with_origin_country=DK");
-        for (MovieDTO m : movieDTOs) {
-            DirectorDTO directorDTO = movieService.getDirectorDTOFromURI(DirectorDTO.class, "crew", "https://api.themoviedb.org/3/movie/" + m.getId() + "/credits");
-            if (directorDTO != null) {
-                m.setDirectorDTO(directorDTO);
-            }
-            List<ActorDTO> actorDTOs = movieService.getDTOsFromURI(ActorDTO.class, "cast", "https://api.themoviedb.org/3/movie/" + m.getId() + "/credits");
-            if (!actorDTOs.isEmpty()) {
-                m.setActorDTOs(actorDTOs);
-            }
-            MovieDTO movieDTO = movieService.getDTOFromURI(MovieDTO.class, "https://api.themoviedb.org/3/movie/" + m.getId());
-            if (!movieDTO.getGenresDTOs().isEmpty()) {
-                m.setGenresDTOs(movieDTO.getGenresDTOs());
-            }
-            movieDAO.createMovie(m);
-        }
-
-
+//
+//        Get Json from API 's and convert to DTOs (all danish movies within 5 years)
+//        List<MovieDTO> movieDTOs = movieService.getDanishMoviesFromLastFiveYears("results", "https://api.themoviedb.org/3/discover/movie?with_origin_country=DK");
+//        for (MovieDTO m : movieDTOs) {
+//            DirectorDTO directorDTO = movieService.getDirectorDTOFromURI(DirectorDTO.class, "crew", "https://api.themoviedb.org/3/movie/" + m.getId() + "/credits");
+//            if (directorDTO != null) {
+//                m.setDirectorDTO(directorDTO);
+//            }
+//            List<ActorDTO> actorDTOs = movieService.getDTOsFromURI(ActorDTO.class, "cast", "https://api.themoviedb.org/3/movie/" + m.getId() + "/credits");
+//            if (!actorDTOs.isEmpty()) {
+//                m.setActorDTOs(actorDTOs);
+//            }
+//            MovieDTO movieDTO = movieService.getDTOFromURI(MovieDTO.class, "https://api.themoviedb.org/3/movie/" + m.getId());
+//            if (!movieDTO.getGenresDTOs().isEmpty()) {
+//                m.setGenresDTOs(movieDTO.getGenresDTOs());
+//            }
+//            movieDAO.createMovie(m);
+//        }
+//
 //        movieDAO.createMovie(movieDTO);
 //
 //        movieDAO.deleteMovieById(365177);

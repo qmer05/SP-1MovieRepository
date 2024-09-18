@@ -21,7 +21,7 @@ public class Actor {
     private String name;
     private String character;
 
-    @ManyToMany (mappedBy = "actors")
+    @ManyToMany(mappedBy = "actors")
     private List<Movie> movies = new ArrayList<>();
 
     public Actor(ActorDTO actorDTO) {

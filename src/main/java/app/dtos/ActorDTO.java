@@ -15,7 +15,7 @@ public class ActorDTO {
     private String name;
     private String character;
 
-    public ActorDTO(Actor actor){
+    public ActorDTO(Actor actor) {
         this.id = actor.getId();
         this.name = actor.getName();
         this.character = actor.getCharacter();

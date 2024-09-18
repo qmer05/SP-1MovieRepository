@@ -54,7 +54,7 @@ public class MovieService {
                 totalPages = rootNode.get("total_pages").asInt();
                 currentPage++;
 
-                // System.out.println((int) ((currentPage / (double) totalPages) * 100) + "%");
+                System.out.println((int) ((currentPage / (double) totalPages) * 100) + "%");
 
                 if (response.statusCode() == 200) {
                     for (JsonNode node : jsonNode) {

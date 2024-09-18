@@ -16,7 +16,7 @@ public class Director {
     private Integer id;
     private String name;
 
-    @OneToMany (mappedBy = "director")
+    @OneToMany(mappedBy = "director")
     private List<Movie> movies;
 
     public Director(DirectorDTO directorDTO) {
