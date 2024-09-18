@@ -10,6 +10,10 @@ The SP-1 Movie Repository is a Java-based application that interacts with The Mo
 - Convert JSON responses to DTOs (Data Transfer Objects).
 - Store and manage movie data using Hibernate.
 - Handle various entities such as movies, directors, actors, and genres.
+- Retrieve movies by director or actor name.
+- Get the top 10 most popular or lowest-rated movies.
+- Search for movies by name.
+- Create, update, and delete movie records.
 
 ## Technologies Used
 
@@ -20,6 +24,14 @@ The SP-1 Movie Repository is a Java-based application that interacts with The Mo
 - **TMDb API**: For fetching movie data.
 
 ## Setup
+
+### Prerequisites
+
+- Java 11 or higher
+- Maven
+- An API key from [The Movie Database (TMDb)](https://www.themoviedb.org/documentation/api)
+
+### Installation
 
 1. **Clone the repository**:
     ```sh
